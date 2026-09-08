@@ -1,0 +1,1 @@
+In this directory, we hold a number of setup SQl scripts to create all the tables necessary. There will also be steps on how to setup the database in time.
