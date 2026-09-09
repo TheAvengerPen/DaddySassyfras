@@ -1,0 +1,10 @@
+# Python virtual environment
+.venv/
+
+# Twitch credentials and tokens
+.env
+.tokens
+
+# Python generated files
+__pycache__/
+*.pyc
