@@ -45,8 +45,18 @@ class DBConnector:
             cursor.execute(query)
 
             self.dataServer.commit()
-
             return cursor.lastrowid
+        except:
+            ErrorLogging.log_error("Failed to execute SQL: " + query)
+            return -1
+
+    def delete_query_execute(self, query):
+        try:
+            cursor = self.dataServer.cursor()
+            cursor.execute(query)
+
+            self.dataServer.commit()
+            return cursor.rowcount
         except:
             ErrorLogging.log_error("Failed to execute SQL: " + query)
             return -1
