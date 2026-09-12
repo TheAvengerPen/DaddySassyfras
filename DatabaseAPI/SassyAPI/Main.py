@@ -1,21 +1,24 @@
 from flask import Flask, request, jsonify
-from DBCommunication import SassSQLCall
+
+import PeopleFns
+from DBCommunication import DBConnector
 
 app = Flask(__name__)
 
 @app.route("/get-user/<user_id>")
 def getUser(user_id):
-    if user_id == "1":
-        userData = {"user_id": user_id,
-                    "name": "Bobby",
-                    "is_streamer": 0}
+    output = PeopleFns.get_person_data(user_id)
 
-        return jsonify(userData), 200
-    else:
-        con = SassSQLCall("APenguinsLullab", "DaddySassyfras")
-        con.execute("select * from People")
+    if output == -1:
+        return "Error running SQl. Please see logs", 400
 
-        return jsonify("Unknown"), 403
+    if len(output) == 0:
+        return "User not found", 404
+
+    print(jsonify(output))
+
+    return jsonify(output), 204
+
 
 @app.route("/create-user", methods=["POST"])
 def createUser():
