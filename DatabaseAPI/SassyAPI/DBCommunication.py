@@ -44,6 +44,8 @@ class DBConnector:
             cursor = self.dataServer.cursor()
             cursor.execute(query)
 
+            self.dataServer.commit()
+
             return cursor.lastrowid
         except:
             ErrorLogging.log_error("Failed to execute SQL: " + query)
