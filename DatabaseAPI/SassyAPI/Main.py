@@ -17,7 +17,7 @@ def getUser(user_id):
 
     print(jsonify(output))
 
-    return jsonify(output), 204
+    return jsonify(output), 200
 
 
 @app.route("/create-user", methods=["POST"])
