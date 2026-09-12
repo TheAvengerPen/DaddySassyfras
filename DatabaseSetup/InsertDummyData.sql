@@ -7,7 +7,7 @@ VALUES
 	('Eubbler', 0),
 	('Fubbler', 1),
 	('Gubbler', 0),
-	('Hubbler', 0)
+	('Hubbler', 0);
 
 INSERT INTO Command
 	(CommandName, CommandTypeID, CommandDescription, ProbabilityActivate)
@@ -15,7 +15,7 @@ VALUES
 	('HiDad', 'Listener', 'This command has a chance to say "Hi, I''m dad" to a user if they trigger it', 2),
 	('Escape', 'Interact', 'Try to escape the prison through 12 gates, if you can', 2),
 	('DeezNuts', 'Listener', 'Make sure that we got em', 2),
-	('BusterVoice', 'Interact', 'How much do you love buster''s voice', 2)
+	('BusterVoice', 'Interact', 'How much do you love buster''s voice', 2);
 
 INSERT INTO CommandPerson 
 	(PersonID, CommandID)
@@ -25,7 +25,7 @@ VALUES
 	(2, 1),
 	(2, 2),
 	(2, 3),
-	(2, 4)
+	(2, 4);
 
 
 INSERT INTO CommandResponse 
@@ -37,7 +37,7 @@ VALUES
 	(' couldn''t even get through the first gate. What a chump.', 2, 50),
 	(' isn''t even trying to escape. Shame on them.', 2, 39),
 	(' deez nuts', 3, 100),
-	('Hi ___ I''m dad', 1, 100)
+	('Hi ___ I''m dad', 1, 100);
 
 INSERT INTO CommandTrigger 
 	(TriggerText, CommandID)
@@ -46,7 +46,7 @@ VALUES
 	('Im', 1),
 	('im', 1),
 	('!escape', 2),
-	('!bustersVoice', 1)
+	('!bustersVoice', 1);
 
 INSERT INTO PersonCommandHistory
 	(PersonID, CommandID, ResponseID)
@@ -54,12 +54,12 @@ VALUES
 	(1, 2, 5),
 	(1, 1, 7),
 	(4, 3, 6),
-	(6, 2, 3)
+	(6, 2, 3);
 
 
-SELECT * FROM People
-SELECT * FROM Command
-SELECT * FROM CommandResponse
-SELECT * FROM CommandPerson
-SELECT * FROM CommandTrigger
-SELECT * FROM PersonCommandHistory
+SELECT * FROM People;
+SELECT * FROM Command;
+SELECT * FROM CommandResponse;
+SELECT * FROM CommandPerson;
+SELECT * FROM CommandTrigger;
+SELECT * FROM PersonCommandHistory;

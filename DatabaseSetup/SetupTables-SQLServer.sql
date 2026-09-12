@@ -1,31 +1,31 @@
-CREATE TABLE People (PersonID int IDENTITY(1,1) Primary Key NOT NULL,
-	TwitchPersonName varchar(max) NOT NULL,
-	IsStreamer bit NOT NULL DEFAULT 0)
+CREATE TABLE People (PersonID int Primary Key NOT NULL AUTO_INCREMENT,
+	TwitchPersonName varchar(255) NOT NULL,
+	IsStreamer bit NOT NULL DEFAULT 0);
 
-CREATE TABLE Command (CommandID int IDENTITY(1,1) Primary Key NOT NULL, 
-	CommandName varchar(max) NOT NULL,
-	CommandTypeID varchar(max),
-	CommandDescription varchar(max),
-	ProbabilityActivate int DEFAULT 100)
+CREATE TABLE Command (CommandID int Primary Key NOT NULL AUTO_INCREMENT, 
+	CommandName varchar(255) NOT NULL,
+	CommandTypeID varchar(255),
+	CommandDescription varchar(255),
+	ProbabilityActivate int DEFAULT 100);
 
-CREATE TABLE CommandPerson (CommandPersonID int IDENTITY(1,1) Primary Key NOT NULL,
+CREATE TABLE CommandPerson (CommandPersonID int Primary Key NOT NULL AUTO_INCREMENT,
 	PersonID int NOT NULL,
-	CommandID int NOT NULL)
+	CommandID int NOT NULL);
 
-CREATE TABLE CommandResponse (ResponseID int IDENTITY(1,1) Primary Key NOT NULL,
-	ResponseText varchar(max),
+CREATE TABLE CommandResponse (ResponseID int Primary Key NOT NULL AUTO_INCREMENT,
+	ResponseText varchar(255),
 	CommandID int NOT NULL,
-	ReponseProbability int)
+	ReponseProbability int);
 
-CREATE TABLE PersonCommandHistory (HistoryID int IDENTITY(1,1) Primary Key NOT NULL,
+CREATE TABLE PersonCommandHistory (HistoryID int Primary Key NOT NULL AUTO_INCREMENT,
 	PersonID int NOT NULL, 
 	CommandID int NOT NULL, 
 	ResponseID int NOT NULL,
-	DateAchieved datetime DEFAULT GetDate())
+	DateAchieved datetime DEFAULT Now());
 
-CREATE TABLE CommandTrigger (CommandTriggerID int IDENTITY(1,1) Primary Key NOT NULL,
+CREATE TABLE CommandTrigger (CommandTriggerID int Primary Key NOT NULL AUTO_INCREMENT,
 	CommandID int NOT NULL,
-	TriggerText varchar(max))
+	TriggerText varchar(255));
 
 
 --DROP TABLE PEOPLE
