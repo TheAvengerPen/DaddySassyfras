@@ -14,9 +14,10 @@ from dotenv import load_dotenv
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.patch_stdout import patch_stdout
+from admin_commands import handle_admin_command
 from commands import handle_command
 from passive import handle_passive
-from profiles import get_sassy_name, list_nicknames, release_nickname
+from profiles import get_sassy_name
 
 # .env stores app credentials; .tokens stores the current bot-account tokens.
 # override=True makes the dedicated token file win over any stale environment value.
@@ -29,7 +30,7 @@ SEND_CHAT_URL = "https://api.twitch.tv/helix/chat/messages"
 CLIENT_ID = os.getenv("TWITCH_CLIENT_ID")
 ACCESS_TOKEN = os.getenv("TWITCH_ACCESS_TOKEN")
 
-TARGET_CHANNEL = "Arlexun"
+TARGET_CHANNEL = "LanUnlimited"
 
 # Runtime switches. These can be changed from Sassy's terminal with % commands.
 COMMANDS_ENABLED = True
@@ -142,11 +143,9 @@ def send_chat_message(broadcaster_id, bot_user_id, text):
 
 async def terminal_chat(broadcaster_id, bot_user_id):
     """Read local terminal input for admin controls or manual bot messages."""
-    global COMMANDS_ENABLED, DEBUG_ENABLED, PASSIVES_ENABLED
     session = PromptSession("> ")
 
-    # Terminal input is checked from top to bottom. Each recognized admin
-    # command ends with "continue", so only unmatched plain text reaches Twitch.
+    # Admin input stays local; only plain text reaches Twitch.
     with patch_stdout():
         while True:
             try:
@@ -162,111 +161,9 @@ async def terminal_chat(broadcaster_id, bot_user_id):
             if text.lower() == "/quit":
                 return
 
-            #Nickname admin tools
-            if text.lower() == "%nicknames":
-                entries = list_nicknames()
-
-                if not entries:
-                    print("No nicknames are currently assigned.")
-                    continue
-
-                print()
-                print("Assigned nicknames:")
-                print("-" * 50)
-
-                for entry in entries:
-                    print(
-                        f"{entry['twitch_name']:<20} -> {entry['nickname']}"
-                    )
-
-                print("-" * 50)
-                continue
-
-            if text.lower().startswith("%releasenickname"):
-                parts = text.split(maxsplit=1)
-
-                if len(parts) < 2:
-                    print("Usage: %releasenickname <nickname>")
-                    continue
-
-                success, message = release_nickname(parts[1].strip())
-                print(message)
-                continue
-
-            #Runtime on/off switches
-            if text.lower().startswith("%commands"):
-                parts = text.split(maxsplit=1)
-
-                if len(parts) < 2:
-                    state = "ON" if COMMANDS_ENABLED else "OFF"
-                    print(f"Public commands are currently {state}.")
-                    continue
-
-                setting = parts[1].strip().lower()
-
-                if setting == "on":
-                    COMMANDS_ENABLED = True
-                    print("Public commands enabled.")
-                    continue
-
-                if setting == "off":
-                    COMMANDS_ENABLED = False
-                    print("Public commands disabled.")
-                    continue
-
-                print("Usage: %commands on | off")
-                continue
-
-            if text.lower().startswith("%debug"):
-                parts = text.split(maxsplit=1)
-
-                if len(parts) < 2:
-                    state = "ON" if DEBUG_ENABLED else "OFF"
-                    print(f"Debug logging is currently {state}.")
-                    continue
-
-                setting = parts[1].strip().lower()
-
-                if setting == "on":
-                    DEBUG_ENABLED = True
-                    print("Debug logging enabled.")
-                    continue
-
-                if setting == "off":
-                    DEBUG_ENABLED = False
-                    print("Debug logging disabled.")
-                    continue
-
-                print("Usage: %debug on | off")
-                continue
-
-            if text.lower().startswith("%passive"):
-                parts = text.split(maxsplit=1)
-
-                if len(parts) < 2:
-                    state = "ON" if PASSIVES_ENABLED else "OFF"
-                    print(f"Passive responses are currently {state}.")
-                    continue
-
-                setting = parts[1].strip().lower()
-
-                if setting == "on":
-                    PASSIVES_ENABLED = True
-                    print("Passive responses enabled.")
-                    continue
-
-                if setting == "off":
-                    PASSIVES_ENABLED = False
-                    print("Passive responses disabled.")
-                    continue
-
-                print("Usage: %passive on | off")
-                continue
-
-            # Any remaining % input is an unrecognized terminal/admin command.
-            # Keep it local so a typo such as %pasive never gets sent to Twitch.
+            # The % prefix is reserved for local admin input, including typos.
             if text.startswith("%"):
-                print(f"Unknown admin command: {text}")
+                handle_admin_command(text, globals())
                 continue
 
             # Plain text that did not match an admin command is spoken by Sassy.

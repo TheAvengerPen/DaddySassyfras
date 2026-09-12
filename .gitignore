@@ -1,2 +1,15 @@
+<<<<<<< HEAD
 DatabaseAPI/SassyAPI/.idea/
 DatabaseAPI/SassyAPI/__pycache__/DBCommunication.cpython-312.pyc
+=======
+# Python virtual environment
+.venv/
+
+# Twitch credentials and tokens
+.env
+.tokens
+
+# Python generated files
+__pycache__/
+*.pyc
+>>>>>>> 02628ca635578ecb10f93fb2f74e350e160da5d0
