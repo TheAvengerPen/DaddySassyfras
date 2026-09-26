@@ -60,3 +60,6 @@ class DBConnector:
         except:
             ErrorLogging.log_error("Failed to execute SQL: " + query)
             return -1
+
+    def clean_str(self, val):
+        return val.replace("'", "''")

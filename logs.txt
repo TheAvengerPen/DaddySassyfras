@@ -1,1 +1,8 @@
-2026-09-12 12:50:22.054479 --- Failed to execute SQL: insert fjdsioa2026-09-12 16:06:43.563906 --- Failed to execute SQL: INSERT INTO People SET (TwitchPersonName, IsStreamer) VALUES ('Adam', 0);2026-09-12 16:09:15.537667 --- Failed to execute SQL: INSERT INTO People SET (TwitchPersonName, IsStreamer) VALUES ('Adam', 0);2026-09-12 18:38:14.419337 --- Failed to execute SQL: UPDATE People SET TwitchPersonName = 'Gubbler', IsStreamer='1' WHERE PersonID = '1';
+2026-09-12 12:50:22.054479 --- Failed to execute SQL: insert fjdsioa2026-09-12 16:06:43.563906 --- Failed to execute SQL: INSERT INTO People SET (TwitchPersonName, IsStreamer) VALUES ('Adam', 0);2026-09-12 16:09:15.537667 --- Failed to execute SQL: INSERT INTO People SET (TwitchPersonName, IsStreamer) VALUES ('Adam', 0);2026-09-12 18:38:14.419337 --- Failed to execute SQL: UPDATE People SET TwitchPersonName = 'Gubbler', IsStreamer='1' WHERE PersonID = '1';2026-09-12 20:05:13.249003 --- Failed to execute SQL: INSERT INTO Command (CommandName, CommandTypeID, CommandDescription, ProbabilityActivate) VALUES () ('Escape', 'Interact', 'Try to escape the prison through 12 gates, if you can', 2);
+
+2026-09-26 20:45:03.100510 --- Failed to execute SQL: INSERT INTO Command (CommandName, CommandTypeID, CommandDescription, ProbabilityActivate) VALUES () ('Escape', 'Interact', 'Try to escape the prison through 12 gates, if you can', 2);
+
+2026-09-26 20:46:30.198703 --- Failed to execute SQL: INSERT INTO Command (CommandName, CommandTypeID, CommandDescription, ProbabilityActivate) VALUES () ('Escape', 'Interact', 'Try to escape the prison through 12 gates, if you can', 2);
+
+2026-09-26 21:06:31.570306 --- Failed to execute SQL: INSERT INTO Command (CommandName, CommandTypeID, CommandDescription, ProbabilityActivate) VALUES () ('Escape', 'Interact', 'Try to escape the prison through 12 gates, if you can', 2);
+

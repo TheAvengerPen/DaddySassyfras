@@ -34,7 +34,7 @@ def create_new_user(twitch_name, is_streamer):
     else:
         is_streamer = 1
 
-    sql_str = f"INSERT INTO People (TwitchPersonName, IsStreamer) VALUES ('{twitch_name}', {is_streamer});"
+    sql_str = f"INSERT INTO People (TwitchPersonName, IsStreamer) VALUES ('{DBConnector.clean_str(twitch_name)}', {is_streamer});"
     output = con.insert_update_query_execute(sql_str)
 
     if output == -1:
