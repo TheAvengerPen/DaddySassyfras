@@ -46,7 +46,7 @@ def create_response():
     if len(output) == 0:
         return "Response not created", 404
 
-    return jsonify(output), 200
+    return jsonify(output), 201
 
 
 @app_responses.route("/update-response", methods=["PUT"])
@@ -66,10 +66,10 @@ def update_response():
     if len(output) == 0:
         return "Response not found", 404
 
-    return jsonify(output), 200
+    return jsonify(output), 201
 
 
-@app_responses.route("/delete-response/<response_id>", METHODS=["DELETE"])
+@app_responses.route("/delete-response/<response_id>", methods=["DELETE"])
 def delete_response(response_id):
     output = ResponseFns.delete_response(response_id)
 
