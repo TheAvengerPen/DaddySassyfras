@@ -18,18 +18,18 @@ VALUES
 	('BusterVoice', 'Interact', 'How much do you love buster''s voice', 2);
 
 INSERT INTO CommandPerson 
-	(PersonID, CommandID)
+	(PersonID, CommandID, Active)
 VALUES
-	(5, 1),
-	(5, 4),
-	(2, 1),
-	(2, 2),
-	(2, 3),
-	(2, 4);
+	(5, 1, 0),
+	(5, 4, 0),
+	(2, 1, 1),
+	(2, 2, 1),
+	(2, 3, 0),
+	(2, 4, 1);
 
 
 INSERT INTO CommandResponse 
-	(ResponseText, CommandID, ReponseProbability)
+	(ResponseText, CommandID, ResponseProbability)
 VALUES
 	(' loves buster''s voice %', 4, 100),
 	(' got through gate 8 but did something that means end', 2, 10),

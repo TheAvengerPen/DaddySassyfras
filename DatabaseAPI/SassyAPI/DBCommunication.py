@@ -3,6 +3,14 @@ import mysql.connector
 import ErrorLogging
 
 
+def clean_str(val):
+    return val.replace("'", "''")
+
+
+def setup_db_con():
+    return DBConnector(usrnm="root", pswrd="Password1", dbnm="sassyfas")
+
+
 class DBConnector:
     user_name = ""
     password = ""
@@ -60,6 +68,3 @@ class DBConnector:
         except:
             ErrorLogging.log_error("Failed to execute SQL: " + query)
             return -1
-
-    def clean_str(self, val):
-        return val.replace("'", "''")

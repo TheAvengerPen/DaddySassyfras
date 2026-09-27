@@ -1,8 +1,4 @@
-from DBCommunication import DBConnector
-
-
-def setup_db_con():
-    return DBConnector(usrnm="root", pswrd="Password1", dbnm="sassyfas")
+from DBCommunication import DBConnector, clean_str, setup_db_con
 
 
 def get_person_data(person_id):
@@ -34,7 +30,7 @@ def create_new_user(twitch_name, is_streamer):
     else:
         is_streamer = 1
 
-    sql_str = f"INSERT INTO People (TwitchPersonName, IsStreamer) VALUES ('{DBConnector.clean_str(twitch_name)}', {is_streamer});"
+    sql_str = f"INSERT INTO People (TwitchPersonName, IsStreamer) VALUES ('{clean_str()}', {is_streamer});"
     output = con.insert_update_query_execute(sql_str)
 
     if output == -1:
@@ -72,10 +68,23 @@ def get_all_users():
 
 def delete_user(user_id):
     con = setup_db_con()
-    sql_str = f"DELETE FROM People WHERE PersonID = {user_id}"
+    sql_str = (f"DELETE FROM People WHERE PersonID = {user_id};"
+               f"DELETE FROM CommandPerson WHERE PersonID = {user_id};"
+               f"DELETE FROM PersonCommandHistory WHERE PersonID = {user_id}")
     output = con.delete_query_execute(sql_str)
 
     return output
+
+
+def get_users_from_command(command_id):
+    con = setup_db_con()
+    sql_str = f"SELECT P.PersonID, P.TwitchPersonName, P.IsStreamer FROM People P RIGHT JOIN CommandPerson CP ON P.PersonID = CP.PersonID WHERE CommandID = {command_id};"
+    output = con.get_dataset_query_execute(sql_str)
+
+    if output == -1:
+        return -1
+
+    return map_person_data(output)
 
 
 def map_person_data(dbrows):

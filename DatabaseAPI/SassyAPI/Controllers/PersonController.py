@@ -5,14 +5,14 @@ app_user = Blueprint("app_user", __name__)
 
 
 @app_user.route("/get-user/<user_id>")
-def getUser(user_id):
+def get_user(user_id):
     output = PeopleFns.get_person_data(user_id)
 
     if output == -1:
         return "Error running SQL. Please see logs", 400
 
     if len(output) == 0:
-        return "User not found", 404
+        return "", 204
 
     return jsonify(output), 200
 
@@ -25,7 +25,7 @@ def get_user_from_twitch(twitch_name):
         return "Error running SQL. Please see logs", 400
 
     if len(output) == 0:
-        return "User not found", 404
+        return "", 204
 
     return jsonify(output), 200
 
@@ -45,7 +45,7 @@ def create_user():
         return "Error running SQL. Please see logs", 400
 
     if len(output) == 0:
-        return "User not found", 404
+        return "User not created", 404
 
     return jsonify(output), 200
 
@@ -78,7 +78,7 @@ def get_all_users():
         return "Error running SQL. Please see logs", 400
 
     if len(output) == 0:
-        return "User not found", 404
+        return "", 204
 
     return jsonify(output), 200
 
@@ -94,3 +94,16 @@ def delete_user(user_id):
         return "Failed to delete user. Record not found.", 404
 
     return f"User deleted successfully.", 200
+
+
+@app_user.route("/get-command-users/<command_id>", methods=["GET"])
+def get_command_users(command_id):
+    output = PeopleFns.get_users_from_command(command_id)
+
+    if output == -1:
+        return "Error running SQL. Please see logs", 400
+
+    if len(output) == 0:
+        return "", 204
+
+    return jsonify(output), 200

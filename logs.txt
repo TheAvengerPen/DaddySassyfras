@@ -6,3 +6,7 @@
 
 2026-09-26 21:06:31.570306 --- Failed to execute SQL: INSERT INTO Command (CommandName, CommandTypeID, CommandDescription, ProbabilityActivate) VALUES () ('Escape', 'Interact', 'Try to escape the prison through 12 gates, if you can', 2);
 
+2026-09-26 23:37:07.904311 --- Failed to execute SQL: SELECT PersonID, TwitchPersonName, IsStreamer FROM People RIGHT JOIN CommandPerson WHERE CommandID = 2
+
+2026-09-27 13:43:39.853310 --- Failed to execute SQL: INSERT INTO CommandResponse (ResponseText, CommandID, ResponseProbability) VALUES ( dem nutz, 2, 100)
+

@@ -15,7 +15,7 @@ CREATE TABLE CommandPerson (CommandPersonID int Primary Key NOT NULL AUTO_INCREM
 CREATE TABLE CommandResponse (ResponseID int Primary Key NOT NULL AUTO_INCREMENT,
 	ResponseText varchar(255),
 	CommandID int NOT NULL,
-	ReponseProbability int);
+	ResponseProbability int);
 
 CREATE TABLE PersonCommandHistory (HistoryID int Primary Key NOT NULL AUTO_INCREMENT,
 	PersonID int NOT NULL, 
