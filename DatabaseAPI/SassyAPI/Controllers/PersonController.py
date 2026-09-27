@@ -34,7 +34,10 @@ def get_user_from_twitch(twitch_name):
 def create_user():
     data = request.get_json()
 
-    new_id = PeopleFns.create_new_user(data["TwitchName"], data["IsStreamer"])
+    try:
+        new_id = PeopleFns.create_new_user(data["TwitchName"], data["IsStreamer"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if new_id == -1:
         return jsonify("Failed to add person"), 400
@@ -54,7 +57,10 @@ def create_user():
 def update_user():
     data = request.get_json()
 
-    new_id = PeopleFns.update_user_info(data["PersonID"], data["TwitchName"], data["PersonID"])
+    try:
+        new_id = PeopleFns.update_user_info(data["PersonID"], data["TwitchName"], data["PersonID"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if new_id == -1:
         return jsonify("Failed to update person"), 400

@@ -21,7 +21,11 @@ def get_command(command_id):
 def create_command():
     data = request.get_json()
 
-    new_id = CommandFns.create_new_command(data["CommandName"], data["CommandTypeID"], data["CommandDescription"], data["ProbabilityActivate"])
+    try:
+        new_id = CommandFns.create_new_command(data["CommandName"], data["CommandTypeID"],
+                                               data["CommandDescription"], data["ProbabilityActivate"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if new_id == -1:
         return jsonify("Failed to add command"), 400
@@ -41,8 +45,11 @@ def create_command():
 def update_command():
     data = request.get_json()
 
-    new_id = CommandFns.update_command_info(data["CommandID"], data["CommandName"], data["CommandTypeID"],
-                                            data["CommandDescription"], data["ProbabilityActivate"])
+    try:
+        new_id = CommandFns.update_command_info(data["CommandID"], data["CommandName"], data["CommandTypeID"],
+                                                data["CommandDescription"], data["ProbabilityActivate"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if new_id == -1:
         return jsonify("Failed to update command"), 400
@@ -100,7 +107,10 @@ def get_commands_for_user(user_id):
 @app_commands.route("/unlink-user-command", methods=["DELETE"])
 def unlink_user_command():
     data = request.get_json()
-    output = CommandFns.unlink_user_command(data["UserID"], data["CommandID"])
+    try:
+        output = CommandFns.unlink_user_command(data["UserID"], data["CommandID"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if output == -1:
         return "Error running SQL. Please see logs.", 400
@@ -111,7 +121,11 @@ def unlink_user_command():
 @app_commands.route("/link-user-command", methods=["PUT"])
 def link_user_command():
     data = request.get_json()
-    output = CommandFns.link_user_command(data["UserID"], data["CommandID"])
+
+    try:
+        output = CommandFns.link_user_command(data["UserID"], data["CommandID"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if output == -2:
         return "Command Already Linked", 404

@@ -33,7 +33,10 @@ def get_command_responses(command_id):
 @app_responses.route("/create-response", methods=["POST"])
 def create_response():
     data = request.get_json()
-    new_id = ResponseFns.create_response(data["ResponseText"], data["CommandID"], data["ResponseProbability"])
+    try:
+        new_id = ResponseFns.create_response(data["ResponseText"], data["CommandID"], data["ResponseProbability"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if new_id == -1:
         return jsonify("Failed to add response"), 400
@@ -52,8 +55,12 @@ def create_response():
 @app_responses.route("/update-response", methods=["PUT"])
 def update_response():
     data = request.get_json()
-    output = ResponseFns.update_response(data["ResponseID"], data["ResponseText"],
-                                         data["CommandID"], data["ResponseProbability"])
+
+    try:
+        output = ResponseFns.update_response(data["ResponseID"], data["ResponseText"],
+                                             data["CommandID"], data["ResponseProbability"])
+    except:
+        return jsonify("Bad Request"), 400
 
     if output == -1:
         return jsonify("Failed to update response. See logs for details.")
